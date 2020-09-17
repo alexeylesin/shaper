@@ -14,6 +14,7 @@ function randomStr(length = 6) {
     return result;
 }
 
+const uuid = require("uuid");
 const fetch = require("node-fetch");
 function createLink(
     client_id = process.env.CLIENT_ID, redirect_uri = process.env.CALLBACK_URI,
@@ -35,13 +36,13 @@ app.get("/auth", (req, res) => {
         if(err) throw err;
         fetch("https://discordapp.com/api/users/@me", {
             headers: { "Authorization": req.cookies.linkshaper }
-        }).then(rr => rr.json()).then(rr => {
-            return res.render("index", {
+        }).then(rr => rr.json()).then(rr =>
+            res.render("index", {
                 data: (data[0]) ? data[0] : null, discord: rr,
                 code: (req.query.code) ? req.query.code : null,
                 error: (req.query.error) ? req.query.error : null,
-            });
-        }).catch(console.error);
+            })
+        ).catch(console.error);
     });
 });
 
@@ -90,6 +91,21 @@ app.get("/auth/callback", (req, res) => {
 app.get("/auth/logout", (req, res) => {
     res.cookie("linkshaper", null, { maxAge: -1 });
     return res.redirect("/auth");
+});
+
+app.get("/api", (req, res) => {
+    return con.query("SELECT id, isActivated, access_token FROM users WHERE cookie_token = ?", [req.cookies.linkshaper], (err, data) => {
+        if(err) throw err;
+        if(!data[0]) return res.redirect("/auth/logout");
+        if(!data[0].access_token) {
+            data[0].access_token = uuid.v4();
+            con.query("UPDATE users SET access_token = ? WHERE cookie_token = ?", [data[0].access_token, req.cookies.linkshaper], (err, data) => {
+                if(err) throw err;
+            });
+        }
+
+        return res.render("api", { data: (data[0]) ? data[0] : null });
+    });
 });
 
 app.get("/api/create", (req, res) => {

@@ -1,0 +1,38 @@
+<%- include("_header.ejs"); %>
+    <% if(data == null) { %>
+        You must login through Discord to continue. <a href="/auth/login" class="btn btn-info bg-dark">Ready?</a>
+    <% } else { %>
+    <% if(Boolean(data.isActivated) == false) { %>
+        <br><b>Your account isn't activated.</b> If you are the owner of an instance, activate it yourself via the database.
+    <% } else { %>
+        Your API key: <b><%- data.access_token %></b>
+        <br><br><table>
+            <thead>
+                <tr class="bg-dark">
+                    <td>Method name</td>
+                    <td>How to send query?</td>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Shorten your link</td>
+                    <td>Make request to <code>/api/create?code=[CODE]&link=[LINK]&access_token=<%- data.access_token %></code></td>
+                </tr>
+                <tr>
+                    <td>Get information by code</td>
+                    <td>Make request to <code>/api/code?code=[CODE]&access_token=<%- data.access_token %></code></td>
+                </tr>
+                <tr>
+                    <td>Get [your/other users] shorten links</td>
+                    <td>Make request to <code>/api/codes?id=[ID]&access_token=<%- data.access_token %></code></td>
+                </tr>
+                <tr>
+                    <td>Delete your shorten link from database</td>
+                    <td>Make request to <code>/api/delete?code=[CODE]&access_token=<%- data.access_token %></code></td>
+                </tr>
+            </tbody>
+        </table>
+    <% } %>
+        <hr><a href="/auth" class="btn btn-info btn-info bg-dark">Maybe you want to shorten link?</a>&nbsp;&nbsp;<a href="/auth/logout" class="btn btn-info btn-danger bg-dark">Are you ready to go?</a>
+    <% } %>
+<%- include("_footer.ejs"); %>
