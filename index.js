@@ -24,6 +24,7 @@ function createLink(
 const express = require("express");
 const app = express();
 
+app.use("/bootstrap-static", express.static("node_modules/@forevolve/bootstrap-dark/dist"));
 app.use("/static", express.static("static"));
 app.set("view engine", "ejs");
 
@@ -147,7 +148,11 @@ app.get("/api/create", (req, res) => {
 });
 
 app.get("/api/code", (req, res) => {
-    return con.query("SELECT id, isActivated FROM users WHERE access_token = ?", [req.query.access_token], (err, users) => {
+    let sql;
+    if(!req.query.access_token) sql = "SELECT id, isActivated FROM users WHERE cookie_token = ?";
+    else sql = "SELECT id, isActivated FROM users WHERE access_token = ?";
+
+    return con.query(sql, [(sql.includes("access_token")) ? req.query.access_token : req.cookies.linkshaper], (err, users) => {
         if(err) throw err;
         if(!users[0] || (users[0] && Boolean(users[0].isActivated) == false))
             return res.status(401).json({ error: { code: 401, message: "Unauthorized" } });
@@ -167,7 +172,11 @@ app.get("/api/code", (req, res) => {
 });
 
 app.get("/api/codes", (req, res) => {
-    return con.query("SELECT id, isActivated FROM users WHERE access_token = ?", [req.query.access_token], (err, users) => {
+    let sql;
+    if(!req.query.access_token) sql = "SELECT id, isActivated FROM users WHERE cookie_token = ?";
+    else sql = "SELECT id, isActivated FROM users WHERE access_token = ?";
+
+    return con.query(sql, [(sql.includes("access_token")) ? req.query.access_token : req.cookies.linkshaper], (err, users) => {
         if(err) throw err;
         if(!users[0] || (users[0] && Boolean(users[0].isActivated) == false))
             return res.status(401).json({ error: { code: 401, message: "Unauthorized" } });
@@ -183,7 +192,11 @@ app.get("/api/codes", (req, res) => {
 });
 
 app.get("/api/delete", (req, res) => {
-    return con.query("SELECT id, isActivated FROM users WHERE access_token = ?", [req.query.access_token], (err, users) => {
+    let sql;
+    if(!req.query.access_token) sql = "SELECT id, isActivated FROM users WHERE cookie_token = ?";
+    else sql = "SELECT id, isActivated FROM users WHERE access_token = ?";
+
+    return con.query(sql, [(sql.includes("access_token")) ? req.query.access_token : req.cookies.linkshaper], (err, users) => {
         if(err) throw err;
         if(!users[0] || (users[0] && Boolean(users[0].isActivated) == false))
             return res.status(401).json({ error: { code: 401, message: "Unauthorized" } });

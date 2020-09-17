@@ -14,6 +14,18 @@
     
             <br><br><button type="submit" class="btn btn-info bg-dark">Shape this link!</button>
         </form>
+        <hr><h4>Your links</h4>
+        <table class="table">
+            <thead>
+                <tr class="bg-dark">
+                    <th>Code</th>
+                    <td>Link</td>
+                    <td>Clicks</td>
+                    <td>Delete?</td>
+                </tr>
+            </thead>
+            <tbody id="allCodes"></tbody>
+        </table>
     <% } %>
         <hr><a href="/api" class="btn btn-info btn-info bg-dark">Maybe you want an API?</a>&nbsp;&nbsp;<a href="/auth/logout" class="btn btn-info btn-danger bg-dark">Are you ready to go?</a>
     <% } %>

@@ -10,6 +10,7 @@
     "private": false,
     "license": "SEE LICENSE IN LICENSE",
     "dependencies": {
+        "@forevolve/bootstrap-dark": "^1.0.0-alpha.1091",
         "cookie-parser": "^1.4.5",
         "dotenv-flow": "^3.2.0",
         "ejs": "^3.1.5",
