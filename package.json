@@ -1,0 +1,21 @@
+{
+    "name": "linkshaper",
+    "version": "1.0.0",
+    "description": "Web-service for shorten your link :p",
+    "main": "index.js",
+    "author": {
+        "name": "vlfz",
+        "url": "https://sqdsh.top/"
+    },
+    "private": false,
+    "dependencies": {
+        "cookie-parser": "^1.4.5",
+        "dotenv-flow": "^3.2.0",
+        "ejs": "^3.1.5",
+        "express": "^4.17.1",
+        "helmet": "^4.1.1",
+        "moment": "^2.28.0",
+        "mysql": "^2.18.1",
+        "node-fetch": "^2.6.1"
+    }
+}
