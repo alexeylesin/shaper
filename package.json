@@ -7,6 +7,9 @@
         "name": "vlfz",
         "url": "https://sqdsh.top/"
     },
+    "scripts": {
+        "start": "node index.js"
+    },
     "private": false,
     "license": "SEE LICENSE IN LICENSE",
     "dependencies": {

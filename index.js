@@ -1,7 +1,11 @@
 require("dotenv-flow").config();
-const con = require("mysql").createPool(
-    require("./database.json")
-);
+const con = require("mysql").createPool({
+    host: process.env.MYSQL_HOST,
+    user: process.env.MYSQL_USER,
+    password: process.env.MYSQL_PASSWORD, 
+    database: process.env.MYSQL_DATABASE,
+    charset: process.env.MYSQL_CHARSET
+});
 
 function randomStr(length = 6) {
     var result = "";

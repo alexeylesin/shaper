@@ -1,9 +1,0 @@
-{
-    "host": "localhost",
-    "port": 3306,
-    "user": "linkshaper",
-    "password": "***",
-    "database": "linkshaper",
-    "insecureAuth": true,
-    "charset": "utf8mb4"
-}
