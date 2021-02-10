@@ -1,0 +1,18 @@
+  
+[Unit]
+Description=LesinShaper
+After=network.target
+
+[Service]
+Type=simple
+User=root
+Restart=on-failure
+
+Environment=NODE_ENV=production
+
+WorkingDirectory=/opt/lesinshaper
+ExecStart=/usr/bin/node index.js
+
+[Install]
+WantedBy=multi-user.target
+
