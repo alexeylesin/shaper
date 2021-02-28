@@ -246,4 +246,5 @@ app.use((err, req, res, next) => {
   return res.status(500).render("_error", { error: { code: 500, message: "Internal Server Error" } });
 });
 
+require("./telegram");
 app.listen(process.env.PORT || 3000, () => console.info(`* Listening on *:${process.env.PORT || 3000}...`));
