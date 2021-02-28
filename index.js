@@ -40,14 +40,14 @@ app.get("/auth", (req, res) => {
   return con.query("SELECT id, isActivated FROM users WHERE cookie_token = ?", [req.cookies.linkshaper], (err, data) => {
     if (err) throw err;
     fetch("https://discordapp.com/api/users/@me", {
-      headers: { "Authorization": req.cookies.linkshaper }
-    }).then(rr => rr.json()).then(rr =>
+      headers: { "Authorization": `Bearer ${req.cookies.linkshaper} `}, method: "GET"
+    }).then(rr => rr.json()).then(rr => {
       res.render("index", {
         data: (data[0]) ? data[0] : null, discord: rr,
         code: (req.query.code) ? req.query.code : null,
         error: (req.query.error) ? req.query.error : null,
       })
-    ).catch(console.error);
+    }).catch(console.error);
   });
 });
 
